@@ -42,9 +42,12 @@ int main(int argc, char **argv)
     }
 
     vector<double> A(n*n);                                       //Вектор для матрицы
+    vector<double> B(n*n);
     vector<double> y(n);                                         //Значения функции в узлах
     vector<double> y2(n);                                        //Значения функции в узлах (поменяется в процессе solve)
+    vector<double> y3(n);
     vector<double> coeff(n);                                     //Вектор коэффициентов полинома
+    vector<double> coeff_mnrp(n);
     vector<double> nodes(n);                                     //Вектор узлов
 
     vector<double> nodes_ans;                                    //Вектор узлов(с добавлением двух равноотстоящих точек между узлами)
@@ -55,46 +58,60 @@ int main(int argc, char **argv)
     {
         y[i] = u(nodes[i]);
         y2[i] = y[i];
+        y3[i] = y[i];
     }
 
-    int flag = solve(n,A,y2,coeff,nodes);                         //Решение СЛАУ
+    Pmatfull(n, A, nodes);                                       //Создание матрицы для полинома
+    MNRPfull(n, B, nodes);                                       //Создание матрицы для МНРП
+    int flag1 = solve(n,A,y2,coeff,nodes);                       //Решение СЛАУ для полинома
+    int flag2 = solve(n,B,y3,coeff_mnrp,nodes);                  //Решение СЛАУ для МНРП
 
-    if(flag== -1)
+    if(flag1 == -1)
     {
-        cerr << "Error: Solving Problem" << endl;
+        cerr << "Error: Solving Problem with Polynomial" << endl;
+        return -1;
+    }
+    if(flag2 == -1)
+    {
+        cerr << "Error: Solving Problem with MNRP" << endl;
         return -1;
     }
 
     answer(n, nodes, nodes_ans);                                 //Добавление по две точке между узлами
 
-    File<<std::setw(10)<< " x_k "<<"\t"
-    <<std::setw(10)<<" y(x_k) "<<"\t"
-    <<std::setw(15)<<" P(x_k) "<<"\t"
-    <<std::setw(15)<<" |y(x_k) - P(x_k)| "<<"\t"
-    <<std::setw(15)<<" L(x_k) "<<"\t"<<"\t"
-    <<std::setw(15)<<" |y(x_k) - L(x_k)| "
+    File
+    <<std::setw(10)<<" x_k "                 <<"\t"
+    <<std::setw(10)<<" y(x_k) "              <<"\t"
+    <<std::setw(15)<<" P(x_k) "              <<"\t"
+    <<std::setw(15)<<" |y(x_k) - P(x_k)| "   <<"\t"
+    <<std::setw(15)<<" L(x_k) "              <<"\t"
+    <<std::setw(15)<<" |y(x_k) - L(x_k)| "   <<"\t"
+    <<std::setw(15)<<"        MNRP(x_k) "    <<"\t"
+    <<std::setw(15)<<" |y(x_k) - MNRP(x_k)| "<<"\t"
     <<endl;
 
 
     for(size_t i=0; i < nodes_ans.size(); i++)
     {
         double a = u(nodes_ans[i]),b = P(n, nodes_ans[i], coeff),c = L(n,nodes_ans[i],nodes, y);
-        File <<
-        std::setw(10) << nodes_ans[i] <<"\t"
-        <<std::setw(10)<< a<<"\t"
-        <<std::setw(15)<< b << "\t"
-        <<std::setw(15)<< std::abs(a - b) << "\t"  
-        <<std::setw(15)<< c<<"\t"
-        <<std::setw(15)<< std::abs(a - c) << "\t" 
+        File
+        <<std::setw(10)<< nodes_ans[i]                                   <<"\t"
+        <<std::setw(10)<< a                                              <<"\t"
+        <<std::setw(15)<< b                                              <<"\t"
+        <<std::setw(15)<< std::abs(a - b)                                <<"\t"  
+        <<std::setw(15)<< c                                              <<"\t"
+        <<std::setw(15)<< std::abs(a - c)                                <<"\t" 
+        <<std::setw(15)<< mnrp(n, nodes_ans[i], coeff_mnrp)              <<"\t"
+        <<std::setw(15)<< std::abs(a - mnrp(n, nodes_ans[i], coeff_mnrp))<<"\t"
         <<endl;        
     }
     // setw - ширина столбца
 
 
 
-    for(size_t i=0; i<coeff.size(); i++)
-        cout<<"coef_"<<i<<" = "<< coeff[i] << endl;
-
+    // for(size_t i=0; i<coeff.size(); i++)
+    //     cout<<"coef_"<<i<<" = "<< coeff[i] << endl;
+    cout<<"h = "<<coeff_mnrp[0]<<endl;
     return 0;
     
 }
