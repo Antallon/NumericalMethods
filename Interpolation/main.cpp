@@ -64,13 +64,14 @@ int main(int argc, char **argv)
         y[i] = u(nodes[i]);
         y2[i] = y[i];
         y3[i] = y[i];
+        nodes_vp[i] = nodes[i];
     }
 
     Pmatfull(n, A, nodes);                                       //Создание матрицы для полинома
     MNRPfull(n, B, nodes);                                       //Создание матрицы для МНРП
     int flag1 = solve(n,A,y2,coeff,nodes);                       //Решение СЛАУ для полинома
     int flag2 = solve(n,B,y3,coeff_mnrp,nodes);                  //Решение СЛАУ для МНРП
-    ImproveVallePuusenApproximation(n, a, b, B, nodes, coeff_vp, points);
+    ImproveVallePuusenApproximation(n, a, b, B, nodes_vp, coeff_vp, points);
     if(flag1 == -1)
     {
         cerr << "Error: Solving Problem with Polynomial" << endl;

@@ -8,7 +8,7 @@ with open('result_new.txt', 'w') as file:
 
 
 # a, b = 0, 30
-a, b = -1, 1
+a, b = -3, 3
 # a,b = -10, 10
 
 
