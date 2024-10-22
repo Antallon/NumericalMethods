@@ -4,6 +4,8 @@
 #include <iomanip>                                               //Для setw
 #include "solve.hpp"
 #include "law.hpp"
+#include "polynom.hpp"
+#include "mnrp.hpp"
 
 #include <math.h>
 #include <cmath>
@@ -48,7 +50,10 @@ int main(int argc, char **argv)
     vector<double> y3(n);
     vector<double> coeff(n);                                     //Вектор коэффициентов полинома
     vector<double> coeff_mnrp(n);
+    vector<double> coeff_vp(n);
     vector<double> nodes(n);                                     //Вектор узлов
+    vector<double> nodes_vp(n);
+    vector<double> points(100);                                  //Вектор точек для Валле-Пуссена
 
     vector<double> nodes_ans;                                    //Вектор узлов(с добавлением двух равноотстоящих точек между узлами)
     
@@ -65,7 +70,7 @@ int main(int argc, char **argv)
     MNRPfull(n, B, nodes);                                       //Создание матрицы для МНРП
     int flag1 = solve(n,A,y2,coeff,nodes);                       //Решение СЛАУ для полинома
     int flag2 = solve(n,B,y3,coeff_mnrp,nodes);                  //Решение СЛАУ для МНРП
-
+    ImproveVallePuusenApproximation(n, a, b, B, nodes, coeff_vp, points);
     if(flag1 == -1)
     {
         cerr << "Error: Solving Problem with Polynomial" << endl;
@@ -84,10 +89,12 @@ int main(int argc, char **argv)
     <<std::setw(10)<<" y(x_k) "              <<"\t"
     <<std::setw(15)<<" P(x_k) "              <<"\t"
     <<std::setw(15)<<" |y(x_k) - P(x_k)| "   <<"\t"
-    <<std::setw(15)<<" L(x_k) "              <<"\t"
+    <<std::setw(10)<<" L(x_k) "              <<"\t"
     <<std::setw(15)<<" |y(x_k) - L(x_k)| "   <<"\t"
-    <<std::setw(15)<<"        MNRP(x_k) "    <<"\t"
+    <<std::setw(10)<<" MNRP(x_k) "    <<"\t"
     <<std::setw(15)<<" |y(x_k) - MNRP(x_k)| "<<"\t"
+    <<std::setw(10)<<" VP(x_k) "      <<"\t"
+    <<std::setw(15)<<" |y(x_k) - VP(x_k)|   "<<"\t"
     <<endl;
 
 
@@ -103,6 +110,8 @@ int main(int argc, char **argv)
         <<std::setw(15)<< std::abs(a - c)                                <<"\t" 
         <<std::setw(15)<< mnrp(n, nodes_ans[i], coeff_mnrp)              <<"\t"
         <<std::setw(15)<< std::abs(a - mnrp(n, nodes_ans[i], coeff_mnrp))<<"\t"
+        <<std::setw(15)<< mnrp(n, nodes_ans[i], coeff_vp)                <<"\t"
+        <<std::setw(15)<< std::abs(a - mnrp(n, nodes_ans[i], coeff_vp))  <<"\t"
         <<endl;        
     }
     // setw - ширина столбца
