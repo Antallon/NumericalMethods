@@ -23,6 +23,17 @@ double u
 }
 
 
+/**
+ * @brief Computes the norm of a matrix.
+ * 
+ * The norm of a matrix is the maximum of the sums of the absolute values of the
+ * elements in each row.
+ * 
+ * @param matrix a vector of doubles representing a matrix
+ * @param n the number of rows in the matrix
+ * 
+ * @return the norm of the matrix
+ */
 double matnorm
 (
     const vector<double>& matrix, 
@@ -48,6 +59,18 @@ double matnorm
 
 
 
+/**
+ * @brief Makes a matrix triangular.
+ * 
+ * This function makes a matrix triangular in place. The matrix is given as a
+ * vector of doubles, and the number of rows is given as an integer. The
+ * function returns 1 on success, and -1 on failure.
+ * 
+ * @param n the number of rows in the matrix
+ * @param A a vector of doubles representing a matrix
+ * @param b a vector of doubles representing the right-hand side of a linear system
+ * @param norma the norm of the matrix
+ */
 int triangle
 (
     const int n, 
@@ -93,6 +116,19 @@ int triangle
 
 
 
+/**
+ * @brief Back-substitution.
+ * 
+ * This function performs back-substitution of a triangular matrix. The matrix is
+ * given as a vector of doubles, and the number of rows is given as an integer.
+ * The function returns 1 on success, and -1 on failure.
+ * 
+ * @param n the number of rows in the matrix
+ * @param A a vector of doubles representing a triangular matrix
+ * @param b a vector of doubles representing the right-hand side of a linear system
+ * @param x a vector of doubles that will contain the solution of the linear system
+ * @param norma the norm of the matrix
+ */
 int reverse
 (
     const int n, 
@@ -125,6 +161,18 @@ int reverse
 }
 
 
+/**
+ * @brief Prints a matrix and a vector in a convenient format.
+ * 
+ * This function prints a matrix and a vector in a format that is easy to read.
+ * The matrix is given as a vector of doubles, and the number of rows is given as
+ * an integer. The vector is given as a vector of doubles. The function prints the
+ * matrix and vector to the standard output.
+ * 
+ * @param matrix a vector of doubles representing a matrix
+ * @param n the number of rows in the matrix
+ * @param vector_b a vector of doubles representing a vector
+ */
 void printMatrix
 (
     vector<double>& matrix, 
@@ -151,6 +199,21 @@ void printMatrix
 
 
 
+/**
+ * @brief Solves a system of linear equations using Gaussian elimination.
+ * 
+ * This function solves a system of linear equations using Gaussian elimination.
+ * The function takes as input a matrix A, a vector y, and a vector coeff. The
+ * matrix A is given as a vector of doubles, and the number of rows is given as
+ * an integer. The vector y is given as a vector of doubles. The function writes
+ * the solution into the vector coeff.
+ * 
+ * @param n the number of rows in the matrix A
+ * @param A a vector of doubles representing a matrix
+ * @param y a vector of doubles representing a vector
+ * @param coeff a vector of doubles representing the solution
+ * @return 0 if the function was successful, -1 otherwise
+ */
 int solve
 (
     const int n, 

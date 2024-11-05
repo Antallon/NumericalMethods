@@ -12,6 +12,21 @@ using namespace std;
 
 
 
+/**
+ * @brief Computes a polynomial approximation at a given point.
+ * 
+ * This function evaluates a polynomial of degree n-1 at a given
+ * point x using the provided coefficients. The polynomial is 
+ * expressed in the form:
+ * 
+ * P(x) = coeff[1] * x^0 + coeff[2] * x^1 + ... + coeff[n-1] * x^(n-2)
+ * 
+ * @param[in] n The number of coefficients, determining the degree of the polynomial.
+ * @param[in] x The point at which to evaluate the polynomial.
+ * @param[in] coeff A vector containing the polynomial coefficients.
+ * 
+ * @return The evaluated polynomial value at the point x.
+ */
 double mnrp
 (
     const int n, 
@@ -30,6 +45,21 @@ double mnrp
 
 
 
+/**
+ * @brief Constructs a matrix B using polynomial basis functions.
+ * 
+ * This function populates a matrix B with values computed from the
+ * nodes vector using polynomial basis functions. For each node, the
+ * function calculates the values for each degree of polynomial up to n-1.
+ * Special handling is done for the first two columns to accommodate specific
+ * basis functions: the first column alternates between 1.0 and -1.0, and the
+ * second column is set to 1.0. For all other columns, the values are calculated
+ * as the power of the node value.
+ * 
+ * @param[in] n The number of nodes and the degree of polynomials plus one.
+ * @param[out] B The matrix to store computed polynomial basis values.
+ * @param[in] nodes A vector containing the node values used in the computation.
+ */
 void MNRPfull
 (
     const int n, 
@@ -53,6 +83,22 @@ void MNRPfull
 
 
 
+/**
+ * @brief Iteratively improves the nodes selection for the Valle-Puusen algorithm.
+ * 
+ * This function iteratively calls VallePuusen to improve the nodes selection for
+ * the given approximation. The iteration stops when the VallePuusen algorithm
+ * returns 0, indicating that the nodes selection is good enough.
+ * 
+ * @param[in] n The number of nodes and the degree of polynomials plus one.
+ * @param[in] a The left boundary of the interval.
+ * @param[in] b The right boundary of the interval.
+ * @param[out] B The matrix to store computed polynomial basis values.
+ * @param[in,out] nodes A vector containing the node values used in the computation.
+ *                      The values are modified by the function.
+ * @param[out] coeff Vector containing the coefficients of the best approximation.
+ * @param[in] points A vector containing the points at which the function is evaluated.
+ */
 void ImproveVallePuusenApproximation
 (
     const int n,
@@ -105,6 +151,25 @@ void ImproveVallePuusenApproximation
 
 
 
+/**
+ * @brief Iterative algorithm of Valle-Puusen for finding a grid for the MNRP.
+ * 
+ * This function implements the iterative algorithm of Valle-Puusen for finding
+ * a grid for the MNRP. It takes as input a vector of points, a vector of nodes
+ * and a matrix of coefficients. At each iteration, it checks if there is a
+ * point in the vector of points that is not in the vector of nodes. If such a
+ * point is found, it is added to the vector of nodes and the matrix of
+ * coefficients is updated. The algorithm stops when all points in the vector
+ * of points are in the vector of nodes.
+ * 
+ * @param[in] n Number of points in the vector of points.
+ * @param[in] B Matrix of coefficients.
+ * @param[in] nodes Vector of nodes.
+ * @param[in] coeff Vector of coefficients.
+ * @param[in] points Vector of points.
+ * 
+ * @return 0 if the algorithm converged, 1 otherwise.
+ */
 int VallePuusen
 (
 
