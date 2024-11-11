@@ -40,8 +40,6 @@ void computeTriangles
 (
     const int Nx, 
     const int Ny, 
-    const double Lx, 
-    const double Ly, 
     vector<Triangle> &triangles
 ) 
 {
@@ -82,11 +80,11 @@ void writeTriangulationToFile
     << (Nx*(Ny+1) + Ny*(Nx+1) + Nx*Ny) - (2*Nx + 2*Ny)<<endl
     << 2*Nx + 2*Ny
     <<endl;
-    for(int i = 0; i < points.size(); i++)
+    for(size_t i = 0; i < points.size(); i++)
     {
         File<<points[i].id<<" "<<points[i].x<<" "<<points[i].y<<endl;
     }
-    for(int i = 0; i < triangles.size(); i++)
+    for(size_t i = 0; i < triangles.size(); i++)
     {
         File<<triangles[i].id<<" "<<triangles[i].p1<<" "<<triangles[i].p2<<" "<<triangles[i].p3<<endl;
     }

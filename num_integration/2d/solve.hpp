@@ -18,7 +18,7 @@ struct Triangle
 };
 
 void computePoints(const int Nx,const int Ny, const double Lx, const double Ly, vector<Point> &points);
-void computeTriangles(const int Nx, const int Ny, const double Lx, const double Ly, vector<Triangle> &triangles);
+void computeTriangles(const int Nx, const int Ny, vector<Triangle> &triangles);
 void writeTriangulationToFile(const int Nx, const int Ny, const vector<Point> &points, const vector<Triangle> &triangles);
 double integrateTriangle(Point p1, Point p2, Point p3,function<double(double, double)> f);
 double integrate(function<double(double, double)> f,const vector<Point> &points,const vector<Triangle> &triangles);
