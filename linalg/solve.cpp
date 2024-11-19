@@ -97,6 +97,15 @@ void multiply
 
 
 
+/**
+ * @brief Compute the Euclidean norm (L2 norm) of a vector
+ * 
+ * This function calculates the Euclidean norm of a given vector `v`,
+ * which is the square root of the sum of the squares of its elements.
+ * 
+ * @param[in] v - The input vector for which the norm is to be computed
+ * @return The Euclidean norm of the vector `v`
+ */
 double vecnorm(const vector<double>& v) 
 {
     double sum = 0.0;
@@ -107,6 +116,13 @@ double vecnorm(const vector<double>& v)
     return sqrt(sum);
 }
 
+/**
+ * @brief Compute difference of two vectors
+ * 
+ * @param[in] v1 - first vector
+ * @param[in] v2 - second vector
+ * @param[out] diff - difference of vectors v1 and v2
+ */
 void vecdiff(const vector<double>& v1, const vector<double>& v2, vector<double>& diff)
 {
     for(size_t i = 0; i < diff.size(); i++)
@@ -217,6 +233,17 @@ void compute_solution_y
 }
 
 
+/**
+ * @brief Solves the system of linear equations Ax = b using Richardson's method
+ * 
+ * @param[inout] x - the solution vector
+ * @param[in] A - matrix A with coefficients for finite difference method
+ * @param[in] b - vector b with the right side of the system of equations
+ * @param[in] tau - parameter of the Richardson's method
+ * @param[in] N - size of the matrix A
+ * @param[in] mIter - number of iterations
+ * @param[in] prod - vector prod with the result of the multiplication A * x
+ */
 void Richardson
 (
     vector<double>&x, 
@@ -271,6 +298,19 @@ void Richardson
 
 
 
+/**
+ * @brief Print a portion of the matrix and a vector
+ * 
+ * This function prints the elements of a matrix and a vector up to a certain limit.
+ * If the number of columns 'n' is less than or equal to 10, it prints all columns.
+ * Otherwise, it prints the first 5 columns. Each row of the matrix is printed
+ * alongside the corresponding element from vector_b.
+ * 
+ * @param matrix - The matrix to be printed.
+ * @param n - The number of columns in the matrix.
+ * @param m - The number of rows in the matrix.
+ * @param vector_b - The vector to be printed alongside the matrix rows.
+ */
 void printMatrix(vector<double>& matrix,int n, int m,  vector<double>& vector_b){
         int l;
         if (n <= 10)
