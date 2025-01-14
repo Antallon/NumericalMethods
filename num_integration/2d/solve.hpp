@@ -2,6 +2,16 @@
 #include <cmath>
 #include <vector>
 #include <functional>
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <iomanip>
+
+using namespace std;
+
+#define EPS 1e-5
 
 using namespace std;
 

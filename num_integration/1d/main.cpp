@@ -99,26 +99,18 @@ int main(int argc,  char **argv)
     cout<<endl<<endl;
 
     ofstream file("result.txt");
-    // while(N < 100000000) {
-    while(N < 10000) {
+    while(N < 100000) {
 
         
     
         N += 1000;
-//        double LS1 = log(fabs(Integral_Simpson_Composite(N, 0.0, pi, [](double x){return cos(100.0*x);})));
-//        double LG1 = log(fabs(Integral_Gauss_Composite(N, 0.0, pi, [](double x){return cos(100.0*x);})));
-        double LS1 = log(fabs(Integral_Simpson_Composite(N, 0.0001, 1.0, [](double x){return 1/sqrt(x);}) - (1.98)));
-        double LG1 = log(fabs(Integral_Gauss_Composite  (N, 0.0001, 1.0, [](double x){return 1/sqrt(x);}) - (1.98)));
-        double LS2 = log(fabs(Integral_Simpson_Composite(N, 0.001,  1.0, [](double x){return 1/sqrt(x);}) - (1.93675)));
-        double LG2 = log(fabs(Integral_Gauss_Composite  (N, 0.001,  1.0, [](double x){return 1/sqrt(x);}) - (1.93675)));
-        double LS3 = log(fabs(Integral_Simpson_Composite(N, 0.01,   1.0, [](double x){return 1/sqrt(x);}) - (1.8)));
-        double LG3 = log(fabs(Integral_Gauss_Composite  (N, 0.01,   1.0, [](double x){return 1/sqrt(x);}) - (1.8)));
 
-//        double LS2 = log(fabs(Integral_Simpson_Composite(N, 0.0, 1.0, [](double x){return exp(-1000.0*x);}) - 0.001));
-//        double LG2 = log(fabs(Integral_Gauss_Composite(N, 0.0, 1.0, [](double x){return exp(-1000.0*x);}) - 0.001));
-
-//        double LS3 = fabs(Integral_Simpson_Composite(N, -1.0, 1.0, [](double x){return 1.0 / sqrt(1.0 - x * x + 1e-6);}) - pi);
-//        double LG3 = fabs(Integral_Gauss_Composite(N, -1.0, 1.0, [](double x){return 1.0 / sqrt(1.0 - x * x + 1e-6);})   - pi);
+        double LS1 = log(fabs(Integral_Simpson_Composite(N, 0.0001, 1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.0001))));
+        double LG1 = log(fabs(Integral_Gauss_Composite  (N, 0.0001, 1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.0001))));
+        double LS2 = log(fabs(Integral_Simpson_Composite(N, 0.001,  1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.001))));
+        double LG2 = log(fabs(Integral_Gauss_Composite  (N, 0.001,  1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.001))));
+        double LS3 = log(fabs(Integral_Simpson_Composite(N, 0.00001,   1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.00001))));
+        double LG3 = log(fabs(Integral_Gauss_Composite  (N, 0.00001,   1.0, [](double x){return 1/sqrt(x);}) - 2*(sqrt(1.0) - sqrt(0.00001))));
         file 
         << setw(15) << log(N)<< " "
         << setw(15)  << LS1 << " "
@@ -128,11 +120,6 @@ int main(int argc,  char **argv)
         << setw(15)  << LS3 << " "
         << setw(15)  << LG3 << " "
         <<endl;
-//        << setw(20) << setprecision(15) << LS2 << " "
-//        << setw(20) << setprecision(15) << LG2 << " "
-//        << setw(20) << setprecision(15) << LS3 << " "
-//        << setw(20) << setprecision(15) << LG3 << endl;
-
     }
 
 

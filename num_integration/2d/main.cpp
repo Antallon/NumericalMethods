@@ -36,6 +36,7 @@ int main(int argc, char **argv)
     computeTriangles(Nx, Ny, triangles);
     writeTriangulationToFile(Nx, Ny, points, triangles);
     double integral = integrate([](double x, double y) {return x*x*x*x + x*x*y*y + y*y*y*y;}, points, triangles);
+    cout<<"Calculation f(x, y) = x^4 + (xy)^2 + y^4"<<endl;
     cout<<"Numeric Integration = "<< integral << endl;
     cout<<"Real Value          = "<< real     << endl; 
 
@@ -56,13 +57,13 @@ int main(int argc, char **argv)
         << std::setw(20) 
         << std::setprecision(15) 
         // << std::log(N) 
-        << N 
+        << log(N) 
 
         << " "
         << std::setw(20) 
         << std::setprecision(15) 
         // << std::log(std::fabs(integrate([](double x, double y) {return x*x*x*x + x*x*y*y + y*y*y*y;}, points, triangles) - real)) 
-        << std::fabs(integrate([](double x, double y) {return x*x*x*x + x*x*y*y + y*y*y*y;}, points, triangles) - real)
+        << log(std::fabs(integrate([](double x, double y) {return x*x*x*x + x*x*y*y + y*y*y*y;}, points, triangles) - real))
 
         << std::endl;
     }

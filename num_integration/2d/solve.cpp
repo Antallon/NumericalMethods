@@ -44,9 +44,9 @@ void computeTriangles
 ) 
 {
     int id = 0;
-    for(int i = 0; i < Nx; i++)
+    for(int i = 0; i < Nx + 1; i++)
     {
-        for(int j = 0; j < Ny; j++)
+        for(int j = 0; j < Ny + 1; j++)
         {
             int v1 = i * (Ny + 1) + j;
             int v2 = (i + 1) * (Ny + 1) + j;
@@ -103,8 +103,12 @@ double integrateTriangle
     double f2 = f(p2.x, p2.y);
     double f3 = f(p3.x, p3.y);
     double area = 0.5 * std::abs((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y));
+    // (p2.x * p3.y) - (p2.x * p1.y) - (p1.x * p3.y) + (p1.x * p1.y) - (p3.x * p2.y) + (p3.x * p1.y) + (p1.x * p2.y) - (p1.x * p1.y) 
     return area * (f1 + f2 + f3) / 3.0;
 }
+
+    // double area = 0.5 * std::abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
+
 
 double integrate
 (

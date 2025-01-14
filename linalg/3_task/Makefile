@@ -2,18 +2,16 @@
 all: prog
 
 # Правило для сборки исполняемого файла
-# prog: main.o solve.o
-# 	g++  -o prog main.o solve.o
-prog: main2.o integration.o
-	g++  -o prog main2.o integration.o
+prog: main3.o solve3.o
+	g++  -o prog main3.o solve3.o
 
 # Правило для создания объектного файла main.o
-main2.o: main2.cpp integration.hpp
-	g++  -O3 -c main2.cpp
+main3.o: main3.cpp solve3.hpp
+	g++  -O3 -c main3.cpp
 
 # Правило для создания объектного файла solve.o
-integration.o: integration.cpp integration.hpp
-	g++  -O3 -c integration.cpp
+solve3.o: solve3.cpp solve3.hpp
+	g++  -O3 -c solve3.cpp
 
 # Правило для очистки сгенерированных файлов
 clean:
